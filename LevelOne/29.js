@@ -13,20 +13,21 @@ function solution(priorities, location) {
     // 배열안에 head[0][0] 큰 값이 있으면 맨 뒤로 보내기
     for (let i = 0; i < head.length; i++) {
         for (let j = 1; j < head.length; j++) {
+            console.log(head);
             if (head[0][0] < head[j][0]) {
-                head.push(head.splice(0, 1));
+                head.push(head[0]);
+                head.splice(0, 1);
             }
         }
     }
 
+    // 해당 index를 담음
     head.map((element, index) => {
-        if (element[1] === location) {
-            result = head.indexOf(element)
+        if (element[index] === location) {
+            result = head.indexOf(element) + 1
         }
     })
-
-    return result + 1;
 }
 
-console.log(solution([2, 1, 3, 2], 2));
+console.log(solution([2, 1, 3, 1], 2));
 // location 2 는 내가 원하는 출력물의 index

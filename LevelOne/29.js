@@ -5,29 +5,35 @@
 function solution(priorities, location) {
     let head = [];
     let result = 0;
+    let resultArr = [];
 
+    // 2차원 배열로 만듦
     for (let i = 0; i < priorities.length; i++) {
         head.push([priorities[i], i]);
     }
 
-    // 배열안에 head[0][0] 큰 값이 있으면 맨 뒤로 보내기
-    for (let i = 0; i < head.length; i++) {
-        for (let j = 1; j < head.length; j++) {
-            console.log(head);
-            if (head[0][0] < head[j][0]) {
+    // 값을 비교
+    // 인쇄 되는 값(요소 중에서 가장 큰 값)을 resultArr에 담기
+    while(head.length > 0) {
+        for (let i = 1; i < head.length; i++) {
+            if (head[0][0] < head[i][0]) {
                 head.push(head[0]);
                 head.splice(0, 1);
+                i = 0;
             }
         }
+        resultArr.push(head.shift());
     }
-
-    // 해당 index를 담음
-    head.map((element, index) => {
-        if (element[index] === location) {
-            result = head.indexOf(element) + 1
+    
+    // location : 2, head[i][1] === 2 인 요소의 index + 1을 return
+    resultArr.map((element, index) => {
+        if (resultArr[index][1] === location) {
+            result = resultArr.indexOf(resultArr[index]) + 1;
         }
     })
+
+    return result;
 }
 
-console.log(solution([2, 1, 3, 1], 2));
+console.log(solution([2,1,3,2], 2));
 // location 2 는 내가 원하는 출력물의 index

@@ -6,18 +6,26 @@ function solution(bridge_length, weight, truck_weights) {
     let pending = []; // 대기 중인 트럭
     let maxWeight = 0;
 
-    while(truck_weights !== 0) {
+    while(truck_weights.length > 0) {
         // 트럭 대수와 무게를 조건으로 걸어야 함
-        maxWeight = pending.forEach( element => maxWeight += element );
+        // 1. truck_weights > 0
+        // 2. bridge_length, weight의 조건에 부합하면 
+        if(pending.length !== 0) {
+            maxWeight = pending.forEach(element => maxWeight += element);
+        }
+
         if(pending.length <= bridge_length && maxWeight <= weight) {
-            pending = truck_weights.shift();
+            pending.push(truck_weights.shift());
+            console.log(pending);
             time++;
         } else {
             pending.shift();
             time++;
+            pending.push(truck_weights.shift());
+            console.log(pending);
         }
     }
-    
+
     return time + 1;
 }
 
